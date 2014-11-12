@@ -14,10 +14,13 @@ public class Map extends JPanel{
 	private final int w = 600;
 	private final int h = 400;
 	LinkedList<City> cities;
-	public Map() {}
+	public Map() {
+            cities = new LinkedList<City>();
+            cities.add(new City("Los Angeles"));
+        }
 	public void addCity(City _city) {
-		cities = new LinkedList<City>();
-		cities.add(_city);
+            cities = new LinkedList<City>();
+	    cities.add(_city);
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -26,12 +29,12 @@ public class Map extends JPanel{
 		g2d.fillRect(0,0, w, h);
 		int x = 0, y = 0;
 		g2d.setColor(Color.BLACK);
-		for (int i = 0; i < cities.size(); i++) {
-			//g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
-			//x += 30;
-			//y += 30;
+		//g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
+                for (int i = 0; i < cities.size(); i++) {
+			g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
+			x += 30;
+			y += 30;
 		}
-		//g2d.draw(new Ellipse2D.Double(0, 100, 30, 30));
 	}
 	public void drawMap() {
 		JFrame frame = new JFrame("Map Viewer");
