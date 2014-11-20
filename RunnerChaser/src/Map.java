@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class Map extends JPanel{
 	int size;
 	private static final int vrad = 30;
-	private static final int scaling_factor = 100;
+	private static final int scalingFactor = 100;
         private final int w = 600;
 	private final int h = 400;
         private LinkedList<City> cities;
@@ -56,18 +56,24 @@ public class Map extends JPanel{
                 g2d.setColor(Color.BLACK);
                 int diag = 1;
                 int v2d[][] = new int[2][size]; //x -> [0][n], y -> [1][n].
+                boolean drawn[] = new boolean[size];
+                for (int i = 0; i < size; i++) drawn[i] = false;
                 System.out.println("Drawing map!!!");
                 for (int i = 0; i < size; i++) {
-                    g2d.draw(new Ellipse2D.Double(x, y, vrad, vrad));
-                    x = (int) vrad + r.nextInt(w - 2*vrad);
-                    y = (int) vrad + r.nextInt(h - 2*vrad);
-                    v2d[0][i] = x;
-                    v2d[1][i] = y;
+                    if (!drawn[i]) { 
+                        x = (int) vrad + r.nextInt(w - 2*vrad);
+                        y = (int) vrad + r.nextInt(h - 2*vrad);
+                        g2d.draw(new Ellipse2D.Double(x, y, vrad, vrad));
+                        v2d[0][i] = x;
+                        v2d[1][i] = y;
+                    }
                     for (int j = 0; j < diag; j++) {
                         System.out.printf("[" + weightMatrix[i][j] + "]");
-                        g2d.drawLine(0,0, 100, 100);
+                        int lineLength = weightMatrix[i][j] * scalingFactor;
                         int originx = v2d[0][i];
                         int originy = v2d[1][i];
+                        g2d.drawLine((int) originx + vrad/2,
+                                (int) originy + vrad/2, 100, 100);
                     }
                     System.out.println("");
                     diag++;
