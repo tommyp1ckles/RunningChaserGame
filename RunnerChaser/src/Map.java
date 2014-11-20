@@ -11,7 +11,9 @@ import javax.swing.JPanel;
  */
 public class Map extends JPanel{
 	int size;
-	private final int w = 600;
+	private static final int vrad = 30;
+	private static final int scaling_factor = 100;
+        private final int w = 600;
 	private final int h = 400;
         private LinkedList<City> cities;
         private int weightMatrix[][];
@@ -53,9 +55,22 @@ public class Map extends JPanel{
 		java.util.Random r = new java.util.Random();
                 g2d.setColor(Color.BLACK);
                 int diag = 1;
+                int v2d[][] = new int[2][size]; //x -> [0][n], y -> [1][n].
+                System.out.println("Drawing map!!!");
                 for (int i = 0; i < size; i++) {
-                    g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
-                   //for (int j = 0; j <
+                    g2d.draw(new Ellipse2D.Double(x, y, vrad, vrad));
+                    x = (int) vrad + r.nextInt(w - 2*vrad);
+                    y = (int) vrad + r.nextInt(h - 2*vrad);
+                    v2d[0][i] = x;
+                    v2d[1][i] = y;
+                    for (int j = 0; j < diag; j++) {
+                        System.out.printf("[" + weightMatrix[i][j] + "]");
+                        g2d.drawLine(0,0, 100, 100);
+                        int originx = v2d[0][i];
+                        int originy = v2d[1][i];
+                    }
+                    System.out.println("");
+                    diag++;
                 }
 	}
 	public void drawMap() {
