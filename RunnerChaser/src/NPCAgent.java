@@ -12,6 +12,7 @@ public class NPCAgent extends Agent {
 	private long runnerAllegiance = 0;
 	private long chaserAllegiance = 0;
 	private int cityNumber;
+	public City runnrgoing;
 
 	protected void activate() {
 		pause(500);
@@ -24,6 +25,9 @@ public class NPCAgent extends Agent {
 	
 	@Override
 	protected void end() {
+	}
+	
+	public void met(){
 	}
 	
 	public static void main(String[] args) {
