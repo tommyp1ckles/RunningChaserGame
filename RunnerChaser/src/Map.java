@@ -30,12 +30,12 @@ public class Map extends JPanel{
 		g2d.setColor(Color.GREEN);
 		//g2d.fillRect(0,0, w, h);
 		int x = 0, y = 0;
-		g2d.setColor(Color.BLACK);
+		java.util.Random r = new java.util.Random();
+                g2d.setColor(Color.BLACK);
                 for (int i = 0; i < cities.size(); i++) {
-			System.out.println(cities.get(i).getName());
                         g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
-			x += 40;
-			//y += 30;
+			x = (int) r.nextInt() % w;
+			//y = r.nextInt() % y;
 		}
 	}
 	public void drawMap() {
