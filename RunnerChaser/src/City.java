@@ -18,5 +18,7 @@ public class City {
 	public void addAdjCity(City _city) {
 		adjCities.add(_city);
 	}
-	
+        public String getName() {
+            return name;
+        }
 }

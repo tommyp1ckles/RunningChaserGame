@@ -13,35 +13,37 @@ public class Map extends JPanel{
 	int size;
 	private final int w = 600;
 	private final int h = 400;
-	LinkedList<City> cities;
+        private LinkedList<City> cities;
 	public Map() {
             cities = new LinkedList<City>();
-            cities.add(new City("Los Angeles"));
+            cities.add(new City("Vancouver"));
         }
 	public void addCity(City _city) {
-            cities = new LinkedList<City>();
 	    cities.add(_city);
-	}
+	    System.out.println("Added city: " + _city.getName() + ", size = " +
+                    cities.size());
+        }
 	@Override
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
+                System.out.println(cities.size());
+                Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.GREEN);
-		g2d.fillRect(0,0, w, h);
+		//g2d.fillRect(0,0, w, h);
 		int x = 0, y = 0;
 		g2d.setColor(Color.BLACK);
-		//g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
                 for (int i = 0; i < cities.size(); i++) {
-			g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
-			x += 30;
-			y += 30;
+			System.out.println(cities.get(i).getName());
+                        g2d.draw(new Ellipse2D.Double(x, y, 30, 30));
+			x += 40;
+			//y += 30;
 		}
 	}
 	public void drawMap() {
-		JFrame frame = new JFrame("Map Viewer");
-		frame.add(new Map());
+                JFrame frame = new JFrame("Map Viewer");
+		frame.add(this);
 		frame.setSize(w, h);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        }
 }
