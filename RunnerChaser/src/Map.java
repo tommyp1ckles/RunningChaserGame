@@ -49,34 +49,33 @@ public class Map extends JPanel{
 	public void paint(Graphics g) {
                 System.out.println(cities.size());
                 Graphics2D g2d = (Graphics2D) g;
-		//g2d.setColor(Color.GREEN);
-		//g2d.fillRect(0,0, w, h);
 		int x = 0, y = 0;
 		java.util.Random r = new java.util.Random();
                 g2d.setColor(Color.BLACK);
                 int diag = 1;
-                int v2d[][] = new int[2][size]; //x -> [0][n], y -> [1][n].
-                boolean drawn[] = new boolean[size];
+                boolean drawn[] = new boolean[size];                
                 for (int i = 0; i < size; i++) drawn[i] = false;
                 System.out.println("Drawing map!!!");
                 for (int i = 0; i < size; i++) {
-                    if (!drawn[i]) { 
-                        x = (int) vrad + r.nextInt(w - 2*vrad);
-                        y = (int) vrad + r.nextInt(h - 2*vrad);
+                    if (!drawn[i]) {
+                        drawn[i] = true;
+                        // Choose random spot within the frame for the city.
+                        x = (int) vrad + r.nextInt(w - 3*vrad);
+                        y = (int) vrad + r.nextInt(h - 3*vrad);
+                        
+                        cities.get(i).setX(x);
+                        cities.get(i).setY(y);
+                        for (int j = 0; j < diag; j++) {
+                            if (weightMatrix[i][j] > 0) {
+                                int off = (int) vrad / 2;
+                                g2d.drawLine(x + off, y + off, 
+                                        cities.get(j).getX() + off,
+                                            cities.get(j).getY() + off);
+                            }
+                        }
                         g2d.draw(new Ellipse2D.Double(x, y, vrad, vrad));
-                        v2d[0][i] = x;
-                        v2d[1][i] = y;
+                        diag++;
                     }
-                    for (int j = 0; j < diag; j++) {
-                        System.out.printf("[" + weightMatrix[i][j] + "]");
-                        int lineLength = weightMatrix[i][j] * scalingFactor;
-                        int originx = v2d[0][i];
-                        int originy = v2d[1][i];
-                        g2d.drawLine((int) originx + vrad/2,
-                                (int) originy + vrad/2, 100, 100);
-                    }
-                    System.out.println("");
-                    diag++;
                 }
 	}
 	public void drawMap() {

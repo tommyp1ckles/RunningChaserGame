@@ -1,9 +1,7 @@
-import madkit.runnerchaser;
+//import madkit.runnerchaser;
 
 public class RunnerAgent extends AbstractMovingAgent
-{
-
-
+{ 
 	public boolean declareDestination()
 	{
 		if(actionpoints <= 0)

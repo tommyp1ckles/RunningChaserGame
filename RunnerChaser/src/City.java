@@ -22,6 +22,8 @@ public class City {
     public void setY(int _y) {
         y = _y;
     }
+    public int getX() { return x; }
+    public int getY() { return y; }
     public void addAdjCity(City _city) {
         adjCities.add(_city);
     }

@@ -6,16 +6,20 @@ public class tester {
         City a = new City("Wolfville");
         City b = new City("San Francisco");
         City c = new City("Los Angeles");
+        City d = new City("Halifax");
         int size = 3;
         int adj[][] = {
-            {1, 1, 9},
-            {1, 2, 3},
-            {3, 2, 1},
+          // a  b  c  
+            {1, 0, 1, 0}, //a
+            {1, 0, 1, 0}, //a
+            {1, 1, 0, 0}, //b
+            {1, 1, 1, 0}, //c
         };
-        Map m = new Map(3);
+        Map m = new Map(4);
         m.addCity(a, adj[0]);
         m.addCity(b, adj[1]);
         m.addCity(c, adj[2]);
+        m.addCity(d, adj[3]);
         m.printMatrix();
         m.drawMap();
     }

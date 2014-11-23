@@ -1,13 +1,11 @@
-package madkit.runnerchaser'
-
+//package madkit.runnerchaser'
 
 import madkit.kernel.AbstractAgent;
-import madkit.runerchaser.City
+//import madkit.runerchaser.City
 
-public interface MovingAgent extends AbstractAgent
+public interface AbstractMovingAgent extends madkit.kernel.AbstractAgent
 {
-	protected Map levelmap;
-
+	/*protected Map levelmap;
 	public int actionpoints;
 	public int actionpointincome = 10;
 	public City currentCity;
@@ -28,6 +26,7 @@ public interface MovingAgent extends AbstractAgent
 	}
 	
 	public abstract boolean declareDestination();
-	
+	*/
 	
 }
+
