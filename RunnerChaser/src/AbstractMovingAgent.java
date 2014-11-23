@@ -3,7 +3,7 @@
 import madkit.kernel.AbstractAgent;
 //import madkit.runerchaser.City
 
-public interface AbstractMovingAgent extends madkit.kernel.AbstractAgent
+public interface AbstractMovingAgent //extends madkit.kernel.AbstractAgent
 {
 	/*protected Map levelmap;
 	public int actionpoints;
