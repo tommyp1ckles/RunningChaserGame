@@ -3,10 +3,10 @@
  */
 public class tester {
     public static void main(String[] args) {
-        City a = new City("Wolfville");
-        City b = new City("San Francisco");
-        City c = new City("Los Angeles");
-        City d = new City("Halifax");
+        /*City a = new City("Wolfville", 0);
+        City b = new City("San Francisco", 1);
+        City c = new City("Los Angeles", 2);
+        City d = new City("Halifax", 3);
         int size = 3;
         int adj[][] = {
           // a  b  c  
@@ -21,6 +21,6 @@ public class tester {
         m.addCity(c, adj[2]);
         m.addCity(d, adj[3]);
         m.printMatrix();
-        m.drawMap();
+        m.drawMap();*/
     }
 }

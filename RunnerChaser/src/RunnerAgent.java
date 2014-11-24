@@ -1,36 +1,38 @@
-import madkit.kernel.Agent;
+	import madkit.kernel.Agent;
 import madkit.kernel.Madkit;
 public class RunnerAgent extends Agent
 {
     private Map m;
+    private City currentCity;
+    private int size;
     protected void activate() {
         System.out.println("Activating RunnerAgent");
-        City a = new City("Wolfville");
-        City b = new City("San Francisco");
-        City c = new City("Los Angeles");
-        City d = new City("Halifax");
-        int size = 3;
-        int adj[][] = {
-          // a  b  c  
-            {1, 0, 1, 0}, //a
-            {1, 0, 1, 0}, //a
-            {1, 1, 0, 0}, //b
-            {1, 1, 1, 0}, //c
-        };
+        City a = new City(0);
+        a.setName("Halifax");
+        City b = new City(1);
+        b.setName("San Francisco");
+        City c = new City(2);
+        c.setName("Wolfville");
+        City d = new City(3);
+        d.setName("Toronto");
+        d.addAdjCity(a);
+        size = 4;
         m = new Map(4);
-        m.addCity(a, adj[0]);
-        m.addCity(b, adj[1]);
-        m.addCity(c, adj[2]);
-        m.addCity(d, adj[3]);
-        m.printMatrix();
+        m.addCity(a);
+        m.addCity(b);
+        m.addCity(c);
+        m.addCity(d);
+        System.out.println("------> " + m.getCity(3).getAdjCity(0).getName());
         m.drawMap();
+        	
+        currentCity = m.getCity(0);
     }
     
     protected void live() {
         while (true) {
             pause(1000);
-            logger.info("im here!");
-            System.out.println("tock");
+            logger.info("Runner: Im currently in :" + currentCity.getName()); 
+            //currentCity = m.getCity(nextCity);
         }
     }
     public static void main(String[] args) {
