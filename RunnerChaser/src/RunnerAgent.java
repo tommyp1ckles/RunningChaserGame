@@ -1,9 +1,12 @@
 	import madkit.kernel.Agent;
 import madkit.kernel.Madkit;
+import madkit.kernel.Madkit.Option;
+
 public class RunnerAgent extends Agent
 {
-    private Map m;
-    private City currentCity;
+	private static final int RUNNERCLOCK = 1000;
+	private Map m;
+    private int currentCity;
     private int size;
     protected void activate() {
         System.out.println("Activating RunnerAgent");
@@ -16,27 +19,43 @@ public class RunnerAgent extends Agent
         City d = new City(3);
         d.setName("Toronto");
         d.addAdjCity(a);
+        a.addAdjCity(b);
+        c.addAdjCity(d);
+
         size = 4;
         m = new Map(4);
         m.addCity(a);
         m.addCity(b);
         m.addCity(c);
         m.addCity(d);
-        System.out.println("------> " + m.getCity(3).getAdjCity(0).getName());
         m.drawMap();
         	
-        currentCity = m.getCity(0);
+        currentCity = 0;
+    	NPCAgent npc1 = new NPCAgent(a);
+        launchAgent(npc1, true);
     }
-    
     protected void live() {
+    	java.util.Random r = new java.util.Random();
         while (true) {
-            pause(1000);
-            logger.info("Runner: Im currently in :" + currentCity.getName()); 
+            pause(RUNNERCLOCK);
+            logger.info("Runner: Im currently in :" + m.getCity(currentCity).getName()); 
+            int nextCity = r.nextInt(m.getCity(currentCity).getAdjNum() + 1);
+            currentCity = nextCity;
             //currentCity = m.getCity(nextCity);
         }
     }
+    /*
+     * This is where all the agents are launched from!
+     */
     public static void main(String[] args) {
-        executeThisAgent();
+        //executeThisAgent();
+    	//the number at the end of the last arguments string is how many 
+    	//instances of the agent to launch.
+		//god knows what the true does...
+    	/*new Madkit(Option.launchAgents.toString(), RunnerAgent.class.getName()+",true,1;",
+                   	NPCAgent.class.getName()+",true,1"
+                );*/
+    	executeThisAgent();
     }
 	/*public boolean declareDestination()
 	{

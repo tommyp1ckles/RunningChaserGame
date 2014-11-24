@@ -9,6 +9,7 @@ import java.util.LinkedList;
 public class City {
     private String name;
     public LinkedList<City> adjCities;
+    public LinkedList<NPCAgent> populous;
     public boolean drawn = false;
     private int cityNum;
     //private LinkedList<NPCAgent> populous;
@@ -16,7 +17,7 @@ public class City {
     public City(int number) {
         cityNum = number;
         adjCities = new LinkedList<City>();
-        //populous = new LinkedList<NPCAgent>();
+        populous = new LinkedList<NPCAgent>();
     }
     public void setName(String _name) {
         name = _name;
