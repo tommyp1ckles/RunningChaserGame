@@ -1,7 +1,9 @@
 /**
  * 
  */
+import java.awt.Color;
 import java.util.LinkedList;
+import java.util.Random;
 /**
  * @author Tom Hadlaw, Zach Bearinger.
  *
@@ -12,8 +14,10 @@ public class City {
     public LinkedList<NPCAgent> populous;
     public boolean drawn = false;
     private int cityNum;
+    private Random r = new Random();
     //private LinkedList<NPCAgent> populous;
-    private int x, y; //the cartesian coordinates of where we draw the city
+    private int x, y; //the cartesian coordinates of where we draw the city.
+    private Color cityColor;
     public City(int number) {
         cityNum = number;
         adjCities = new LinkedList<City>();
@@ -21,6 +25,12 @@ public class City {
     }
     public void setName(String _name) {
         name = _name;
+    }
+    public void setColor(Color c) {
+    	cityColor = c;
+    }
+    public Color getColor() {
+    	return cityColor;
     }
     public void setX(int _x) {
         x = _x;
@@ -35,6 +45,10 @@ public class City {
     }
     public City getAdjCity(int i) {
         return adjCities.get(i);
+    }
+    public int getRandomDestinationIndex() {
+    	int numOfCities = adjCities.size();
+    	return r.nextInt(numOfCities);
     }
     public void addAdjCity(City _city) {
         adjCities.add(_city);

@@ -1,4 +1,6 @@
-	import madkit.kernel.Agent;
+	import javax.swing.JFrame;
+
+import madkit.kernel.Agent;
 import madkit.kernel.Madkit;
 import madkit.kernel.Madkit.Option;
 
@@ -8,6 +10,7 @@ public class RunnerAgent extends Agent
 	private Map m;
     private int currentCity;
     private int size;
+    JFrame frame;
     protected void activate() {
         System.out.println("Activating RunnerAgent");
         City a = new City(0);
@@ -21,27 +24,26 @@ public class RunnerAgent extends Agent
         d.addAdjCity(a);
         a.addAdjCity(b);
         c.addAdjCity(d);
-
         size = 4;
         m = new Map(4);
         m.addCity(a);
         m.addCity(b);
         m.addCity(c);
         m.addCity(d);
-        m.drawMap();
-        	
+        frame = m.drawMap();
         currentCity = 0;
-    	NPCAgent npc1 = new NPCAgent(a);
+    	NPCAgent npc1 = new NPCAgent(a, m);
         launchAgent(npc1, true);
     }
     protected void live() {
     	java.util.Random r = new java.util.Random();
         while (true) {
             pause(RUNNERCLOCK);
-            logger.info("Runner: Im currently in :" + m.getCity(currentCity).getName()); 
-            int nextCity = r.nextInt(m.getCity(currentCity).getAdjNum() + 1);
-            currentCity = nextCity;
-            //currentCity = m.getCity(nextCity);
+            logger.info("Runner: Im currently in :" + m.getCity(currentCity).getName());           
+            int numberOfPaths = m.getCity(currentCity).getAdjNum();
+            currentCity = m.getCity(currentCity).getAdjCity(r.nextInt(numberOfPaths)).getNum();
+            m.setRunnerLocation(currentCity);
+            m.refreshMap();
         }
     }
     /*
