@@ -17,6 +17,7 @@ public class NPCAgent extends Agent {
 	private City residence;
 	public City runnrgoing;
 	public Map worldMap;
+	
 	public NPCAgent(City _residence, Map worldMap) {
 			residence = residence;
 			Random r = new Random();
@@ -27,7 +28,7 @@ public class NPCAgent extends Agent {
     }
 	@Override
 	protected void live() {
-		waitNextMessage();
+			waitNextMessage();
 	}
 	
 	@Override

@@ -140,6 +140,7 @@ public class Map extends JPanel{
     JFrame frame;
     public JFrame drawMap() {
         frame = new JFrame("Map Viewer");
+        frame.setBackground(Color.GRAY);
         frame.add(this);
         frame.setSize(w, h);
         frame.setResizable(false);

@@ -12,7 +12,16 @@ public class RunnerAgent extends Agent
     private int size;
     JFrame frame;
     protected void activate() {
-        System.out.println("Activating RunnerAgent");
+        /*
+         * createGroupIfAbsent(MarketOrganization.COMMUNITY,MarketOrganization.CLIENT_GROUP,true,null);
+		createGroupIfAbsent(MarketOrganization.COMMUNITY,MarketOrganization.PROVIDERS_GROUP,true,null);
+		requestRole(MarketOrganization.COMMUNITY,MarketOrganization.CLIENT_GROUP, MarketOrganization.BROKER_ROLE,null);
+		requestRole(MarketOrganization.COMMUNITY,MarketOrganization.PROVIDERS_GROUP, MarketOrganization.BROKER_ROLE,null);
+         */
+    	createGroupIfAbsent(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, true, null);
+    	requestRole(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, 
+    			RunnerChaserCommunication.RUNNER_ROLE);
+    	System.out.println("Activating RunnerAgent");
         City a = new City(0);
         a.setName("Halifax");
         City b = new City(1);
