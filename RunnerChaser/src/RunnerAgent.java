@@ -24,57 +24,64 @@ public class RunnerAgent extends Agent
     	createGroupIfAbsent(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, true, null);
     	requestRole(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, 
     			RunnerChaserCommunication.RUNNER_ROLE);
-    	System.out.println("Activating RunnerAgent");
-        City a = new City(0);
-        a.setLocation(100, 100);
-        a.setName("Halifax");
-        City b = new City(1);
-        b.setLocation(200, 500);
-        b.setName("San Francisco");
-        City c = new City(2);
-        c.setLocation(800, 100);
-        c.setName("Wolfville");
-        City d = new City(3);
-        d.setLocation(500, 100);
-        d.setName("Toronto");
-        City e = new City(4);
-        e.setLocation(700, 500);
-        e.setName("Los Angeles");
-        City f = new City(5);
-        f.setName("New York");
-        f.setLocation(750, 350);
-        d.addAdjCity(a);
-        d.addAdjCity(b);
-        a.addAdjCity(b);
-        c.addAdjCity(d);
-        f.addAdjCity(a);
-        f.addAdjCity(b);
-        f.addAdjCity(c);
-        e.addAdjCity(f);
-        e.addAdjCity(b);
         size = 6;
-        m = new Map(6);
-        m.addCity(a);
-        m.addCity(b);
-        m.addCity(c);
-        m.addCity(d);
-        m.addCity(e);
-        m.addCity(f);
+    	City cities[] = new City[size];
+        cities[0] = new City(0);
+        cities[0].setLocation(100, 100);
+        cities[0].setName("Halifax");
+        cities[1] = new City(1);
+        cities[1].setLocation(200, 500);
+        cities[1].setName("San Francisco");
+        cities[2] = new City(2);
+        cities[2].setLocation(800, 100);
+        cities[2].setName("Wolfville");
+        cities[3] = new City(3);
+        cities[3].setLocation(500, 100);
+        cities[3].setName("Toronto");
+        cities[4] = new City(4);
+        cities[4].setLocation(700, 500);
+        cities[4].setName("Los Angeles");
+        cities[5] = new City(5);
+        cities[5].setName("New York");
+        cities[5].setLocation(750, 350);
+        cities[3].addAdjCity(cities[0]);
+        cities[3].addAdjCity(cities[1]);
+        cities[0].addAdjCity(cities[1]);
+        cities[2].addAdjCity(cities[3]);
+        cities[5].addAdjCity(cities[0]);
+        cities[5].addAdjCity(cities[1]);
+        cities[5].addAdjCity(cities[2]);
+        cities[4].addAdjCity(cities[5]);
+        cities[4].addAdjCity(cities[1]);
+        m = new Map(size);
+        for (int i = 0; i < size; i++) {
+        	m.addCity(cities[i]);
+        	createGroupIfAbsent(
+        			comm.COMMUNITY,
+        			cities[i].getName(),
+        			true, null);
+        	requestRole(
+        			comm.COMMUNITY,
+        			cities[i].getName(),
+        			comm.RUNNER_ROLE
+        			);
+        }
         frame = m.drawMap();
         currentCity = 0;
-    	
         /* Create all the other agents */
         NPCAgent npc[] = new NPCAgent[5];
-        npc[0] = new NPCAgent(a, m);
-        npc[1] = new NPCAgent(b, m);
-        npc[2] = new NPCAgent(c, m);
-        npc[3] = new NPCAgent(d, m);
-        npc[4] = new NPCAgent(a, m);
+        npc[0] = new NPCAgent(m.getCity(0), m);
+        npc[1] = new NPCAgent(m.getCity(1), m);
+        npc[2] = new NPCAgent(m.getCity(2), m);
+        npc[3] = new NPCAgent(m.getCity(3), m);
+        npc[4] = new NPCAgent(m.getCity(4), m);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
         	launchAgent(npc[i], true);
         }
-
+        /*createGroupIfAbsent(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, true, null);
+    	requestRole(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, 
+    			RunnerChaserCommunication.RUNNER_ROLE);*/
     }
     protected void live() {
     	java.util.Random r = new java.util.Random();
@@ -83,20 +90,15 @@ public class RunnerAgent extends Agent
             pause(RUNNERCLOCK);
             logger.info("Runner: Im currently in :" + m.getCity(currentCity).getName());           
             int numberOfPaths = m.getCity(currentCity).getAdjNum();
-            currentCity = m.getCity(currentCity).getAdjCity(r.nextInt(numberOfPaths)).getNum();
+            int nextCity = m.getCity(currentCity).getAdjCity(r.nextInt(numberOfPaths)).getNum();
+            broadcastMessage(
+            		comm.COMMUNITY,
+            		m.getCity(currentCity).getName(),
+            		comm.NPC_ROLE,
+            		new StringMessage(m.getCity(nextCity).getName()));
+            currentCity = nextCity;
             m.setRunnerLocation(currentCity);
             m.refreshMap();
-            /*ans = sendMessageWithRoleAndWaitForReply(
-					RunnerChaserCommunication.COMMUNITY, 
-					RunnerChaserCommunication.RUNNER_NPC_GROUP, 
-					RunnerChaserCommunication.NPC_ROLE, 
-					new StringMessage(m.getCity(currentCity).getName()), 
-					RunnerChaserCommunication.RUNNER_ROLE,
-					1000);
-			*/
-    		//broadcastMessage(COMMUNITY,SIMU_GROUP,FOLLOWER_ROLE, new ObjectMessage<>(myInformation));
-            broadcastMessage(comm.COMMUNITY, comm.RUNNER_NPC_GROUP, comm.NPC_ROLE, 
-            		new StringMessage(m.getCity(currentCity).getName()));
     	}
     }
     /*
