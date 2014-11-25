@@ -38,6 +38,10 @@ public class City {
     public void setY(int _y) {
         y = _y;
     }
+    public void setLocation(int _x, int _y) {
+    	x = _x;
+    	y = _y;
+    }
     public int getX() { return x; }
     public int getY() { return y; }
     public int getAdjNum() {

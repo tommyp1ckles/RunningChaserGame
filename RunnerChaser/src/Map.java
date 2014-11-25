@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 public class Map extends JPanel{
     private int size;
     private static final int vrad = 40;
-    private final int w = 600;
-    private final int h = 400;
+    private final int w = 900;
+    private final int h = 600;
     private boolean generateMap = true;
     public LinkedList<City> cities;
     public int runnerLocation;
@@ -66,10 +66,12 @@ public class Map extends JPanel{
 	        for (int i = 0; i < size; i++) {
 	            Color cityColor = new Color(r.nextInt(100)+155, r.nextInt(100)+155,
 	                    r.nextInt(100)+155);
-	            x = (int) vrad + r.nextInt(w - 3*vrad);
-	            y = (int) vrad + r.nextInt(h - 3*vrad);    
-	            cities.get(i).setX(x);
-	            cities.get(i).setY(y);
+	            //x = (int) vrad + r.nextInt(w - 3*vrad);
+	            //y = (int) vrad + r.nextInt(h - 3*vrad);
+	            x = cities.get(i).getX();
+	            y = cities.get(i).getY();
+	            //cities.get(i).setX(x);
+	            //cities.get(i).setY(y);
 	            cities.get(i).setColor(cityColor);
 	            g2d.setColor(cityColor);
 	            g2d.fill(new Ellipse2D.Double(x, y, vrad, vrad));
