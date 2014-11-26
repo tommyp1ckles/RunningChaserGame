@@ -12,6 +12,7 @@ public class City {
     private String name;
     public LinkedList<City> adjCities;
     public LinkedList<NPCAgent> populous;
+    private int population = 0;
     public boolean drawn = false;
     private int cityNum;
     private Random r = new Random();
@@ -65,4 +66,5 @@ public class City {
     public int getNum() {
     	return cityNum;
     }
+    public void incPop() { population++; }
 }

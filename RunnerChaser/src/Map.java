@@ -19,7 +19,7 @@ public class Map extends JPanel{
     private final int h = 600;
     private boolean generateMap = true;
     public LinkedList<City> cities;
-    public int runnerLocation;
+    public int runnerLocation, chaserLocation;
     private Random r = new Random();
     private int weightMatrix[][];
     
@@ -75,7 +75,7 @@ public class Map extends JPanel{
 	            cities.get(i).setColor(cityColor);
 	            g2d.setColor(cityColor);
 	            g2d.fill(new Ellipse2D.Double(x, y, vrad, vrad));
-	            g2d.setColor(Color.BLACK);
+	            g2d.setColor(new Color(189, 255, 226));
 	            g2d.drawString(cities.get(i).getName(), x, y);
 	        }
 	        //Draw roads.
@@ -111,6 +111,7 @@ public class Map extends JPanel{
 	        }
     	}
     	City runLoc = cities.get(runnerLocation);
+    	g2d.setColor(new Color(189, 255, 226));
     	g2d.drawString("Runner", runLoc.getX() + vrad, runLoc.getY() + vrad);
     	//g2d.fill(new Ellipse2D.Double(runLoc.getX(), runLoc.getY(), (int) vrad / 2, (int) vrad / 2));
         /*int diag = 1;

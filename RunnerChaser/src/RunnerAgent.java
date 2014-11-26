@@ -70,19 +70,19 @@ public class RunnerAgent extends Agent
         currentCity = 0;
         /* Create all the other agents */
         NPCAgent npc[] = new NPCAgent[5];
+        ChaserAgent chaser = new ChaserAgent(m, 5);
         npc[0] = new NPCAgent(m.getCity(0), m);
         npc[1] = new NPCAgent(m.getCity(1), m);
         npc[2] = new NPCAgent(m.getCity(2), m);
         npc[3] = new NPCAgent(m.getCity(3), m);
         npc[4] = new NPCAgent(m.getCity(4), m);
-
+        /*Launch all other agents here */
         for (int i = 0; i < 2; i++) {
         	launchAgent(npc[i], true);
         }
-        /*createGroupIfAbsent(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, true, null);
-    	requestRole(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, 
-    			RunnerChaserCommunication.RUNNER_ROLE);*/
+        launchAgent(chaser, true);
     }
+    
     protected void live() {
     	java.util.Random r = new java.util.Random();
         Message ans;
@@ -105,13 +105,8 @@ public class RunnerAgent extends Agent
      * This is where all the agents are launched from!
      */
     public static void main(String[] args) {
-        //executeThisAgent();
-    	//the number at the end of the last arguments string is how many 
-    	//instances of the agent to launch.
-		//god knows what the true does...
-    	/*new Madkit(Option.launchAgents.toString(), RunnerAgent.class.getName()+",true,1;",
-                   	NPCAgent.class.getName()+",true,1"
-                );*/
+        //The RunnerAgent is responsible for executing
+    	//all other agents.
     	executeThisAgent();
     }
 	/*public boolean declareDestination()
