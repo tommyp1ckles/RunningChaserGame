@@ -53,6 +53,9 @@ public class ChaserAgent extends Agent {
 					}
 				}
 			}
+			if (currentCity == m.runnerLocation) {
+				System.exit(0);
+			}
 			logger.info("Chaser: currently in " + m.getCity(currentCity).getName());
 		}
 	}
