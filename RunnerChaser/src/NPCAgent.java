@@ -20,13 +20,18 @@ public class NPCAgent extends Agent {
 	private City residence;
 	private City runnrgoing;
 	private Map worldMap;
-	private String lastSeenHeaded;
+	private String lastSeenHeaded = "UNDEFINED!";
 	private RunnerChaserCommunication comm;
+	private RunnerChaserConfig config;
 	public NPCAgent(City _residence, Map worldMap) {
 			residence = _residence;
 			_residence.incPop();
 			Random r = new Random();
-			allegiance = r.nextInt(100);
+			allegiance = (int) (r.nextGaussian() * 
+					config.NPC_ALLEGIANCE_STD_DEVIATION
+					+ config.NPC_ALLEGIANCE_MEAN);
+			if (allegiance < 0) allegiance = 1;
+			else if (allegiance > 100) allegiance = 100;
 	}
 	protected void activate() {
 	        logger.info("NPC: Hello I am a npc agent, I live in " +
@@ -65,15 +70,19 @@ public class NPCAgent extends Agent {
 		while (true) {
 			msg = waitNextMessage();
 			String msgStr = ((StringMessage) msg).getContent();
-			//logger.info("THE RUNNER IS IN MY CITY OMG OMG OMG OMG!");
 			if (msg.getSender().getRole() == comm.RUNNER_ROLE) {
 				logger.info("NPC: Runner agent is currently here\n "
 						+ "and is seen headed to: " + msgStr);
 				lastSeenHeaded = msgStr;
 			}
-			if (msg.getSender().getRole() == comm.CHASER_ROLE && 
-					((StringMessage) msg).getContent() == comm.POLLMSG) {
-				
+			if (msg.getSender().getRole() == comm.CHASER_ROLE) {
+				logger.info(msg.toString());
+				Random r = new Random();
+				if (r.nextInt(100) > allegiance)
+					sendReply(msg, new StringMessage(lastSeenHeaded));
+				else {
+					sendReply(msg, new StringMessage(comm.DECLINE));
+				}
 			}
 		}
 	}
