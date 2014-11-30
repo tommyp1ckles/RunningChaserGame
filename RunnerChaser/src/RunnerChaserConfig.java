@@ -13,6 +13,6 @@ public class RunnerChaserConfig {
 	 * Allegiance is 0-100 going from chaser to runner,
 	 * respectively.
 	 */
-	public static final double NPC_ALLEGIANCE_MEAN = 15;
+	public static final double NPC_ALLEGIANCE_MEAN = 30;
 	public static final double NPC_ALLEGIANCE_STD_DEVIATION = 20;
 }
