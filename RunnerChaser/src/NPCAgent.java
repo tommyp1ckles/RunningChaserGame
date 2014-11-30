@@ -78,8 +78,9 @@ public class NPCAgent extends Agent {
 			if (msg.getSender().getRole() == comm.CHASER_ROLE) {
 				logger.info(msg.toString());
 				Random r = new Random();
-				if (r.nextInt(100) > allegiance)
+				if (r.nextInt(100) > allegiance) {
 					sendReply(msg, new StringMessage(lastSeenHeaded));
+				}
 				else {
 					sendReply(msg, new StringMessage(comm.DECLINE));
 				}

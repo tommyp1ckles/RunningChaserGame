@@ -68,7 +68,7 @@ public class Map extends JPanel{
         g2d.setStroke(new BasicStroke(10));	
         g2d.setRenderingHint(
     			RenderingHints.KEY_ANTIALIASING, 
-    			RenderingHints.VALUE_ANTIALIAS_ON);System.out.println(cities.size());
+    			RenderingHints.VALUE_ANTIALIAS_ON);
         int x = 0, y = 0;
         java.util.Random r = new java.util.Random();
     	if (generateMap) {

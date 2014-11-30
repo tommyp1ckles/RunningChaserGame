@@ -79,12 +79,10 @@ public class RunnerAgent extends Agent
         }
         /*Launch all other agents here */
         for (int i = 0; i < size; i++) {
-        	launchAgent(npc[i], true);
+        	launchAgent(npc[i], false);
         }
         ChaserAgent chaser = new ChaserAgent(m, 0);
         launchAgent(chaser, true);
-        GameAgent game = new GameAgent(m);
-        //launchAgent(game, false);
     }
     
     protected void live() {

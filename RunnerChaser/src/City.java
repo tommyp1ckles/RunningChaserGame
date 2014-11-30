@@ -16,7 +16,7 @@ public class City {
     public boolean drawn = false;
     private int cityNum;
     private Random r = new Random();
-    //the cartesian coordinates of where we draw the city.
+  //the cartesian coordinates of where we draw the city.
     private int x, y;
     private Color cityColor;
     public City(int number) {
