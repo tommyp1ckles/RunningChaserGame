@@ -1,5 +1,6 @@
 	import javax.swing.JFrame;
 
+import madkit.kernel.AbstractAgent;
 import madkit.kernel.Agent;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
@@ -10,10 +11,10 @@ public class RunnerAgent extends Agent
 	private Map m;
     private int currentCity, lastCity;
     private int size;
-    JFrame frame;
+    private int moves = 0;
+    private JFrame frame;
     private RunnerChaserCommunication comm;
     protected void activate() {
-    	
     	createGroupIfAbsent(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, true, null);
     	requestRole(RunnerChaserCommunication.COMMUNITY, RunnerChaserCommunication.RUNNER_NPC_GROUP, 
     			RunnerChaserCommunication.RUNNER_ROLE);
@@ -81,7 +82,7 @@ public class RunnerAgent extends Agent
         for (int i = 0; i < size; i++) {
         	launchAgent(npc[i], false);
         }
-        ChaserAgent chaser = new ChaserAgent(m, 0);
+        ChaserAgent chaser = new ChaserAgent(m, 0, this);
         launchAgent(chaser, true);
     }
     
@@ -103,13 +104,22 @@ public class RunnerAgent extends Agent
             		new StringMessage(m.getCity(nextCity).getName()));
             lastCity = currentCity;
             currentCity = nextCity;
+            moves++;
             m.setRunnerLocation(currentCity);
             m.refreshMap();
+            
     	}
+    }
+    protected void end() {
+    	System.out.println("!@!!@E!");
     }
     /*
      * This is where all the agents are launched from.
      */
+    
+    public void printStats() {
+    	System.out.println("Runner took " + moves + " moves before it was caught.");
+    }
     public static void main(String[] args) {
         /*The RunnerAgent is responsible for executing all other agents.*/
     	executeThisAgent();
