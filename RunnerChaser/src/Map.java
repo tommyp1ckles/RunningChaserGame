@@ -15,8 +15,9 @@ import javax.swing.JPanel;
 public class Map extends JPanel{
     private int size;
     private static final int vrad = 40;
-    private final int w = 1100;
-    private final int h = 700;
+    private int scale = 2;
+    private final int w = (int) 1100 / scale;
+    private final int h = (int) 700 / scale;
     private boolean generateMap = true;
     public LinkedList<City> cities;
     public int runnerLocation, chaserLocation;
@@ -85,9 +86,9 @@ public class Map extends JPanel{
 	            //cities.get(i).setY(y);
 	            cities.get(i).setColor(cityColor);
 	            g2d.setColor(cityColor);
-	            g2d.fill(new Ellipse2D.Double(x, y, vrad, vrad));
+	            g2d.fill(new Ellipse2D.Double(x/scale, y/scale, vrad, vrad));
 	            g2d.setColor(new Color(189, 255, 226));
-	            g2d.drawString(cities.get(i).getName(), x, y);
+	            g2d.drawString(cities.get(i).getName(), x/scale, y/scale);
 	        }
 	        //Draw roads.
 	        g2d.setColor(Color.BLACK);
@@ -95,8 +96,8 @@ public class Map extends JPanel{
 	            City currCity = cities.get(i);
 	            int off = (int) vrad / 2;
 	            for (int j = 0; j < currCity.getAdjNum(); j++) {
-	                g2d.drawLine(currCity.getX() + off, currCity.getY() + off,
-	                        currCity.getAdjCity(j).getX() + off, currCity.getAdjCity(j).getY() + off);
+	                g2d.drawLine(currCity.getX()/scale + off, currCity.getY()/scale + off,
+	                        currCity.getAdjCity(j).getX()/scale + off, currCity.getAdjCity(j).getY()/scale + off);
 	            }
 	        }
 	        generateMap = false;
@@ -107,8 +108,8 @@ public class Map extends JPanel{
 	            City currCity = cities.get(i);
 	            int off = (int) vrad / 2;
 	            for (int j = 0; j < currCity.getAdjNum(); j++) {
-	                g2d.drawLine(currCity.getX() + off, currCity.getY() + off,
-	                        currCity.getAdjCity(j).getX() + off, currCity.getAdjCity(j).getY() + off);
+	                g2d.drawLine(currCity.getX()/scale + off, currCity.getY()/scale + off,
+	                        currCity.getAdjCity(j).getX()/scale + off, currCity.getAdjCity(j).getY()/scale + off);
 	            }
 	        }
 	        for (int i = 0; i < size; i++) {
@@ -116,18 +117,18 @@ public class Map extends JPanel{
 	            y = cities.get(i).getY();
 	            Color cityColor = cities.get(i).getColor();
 	            g2d.setColor(cityColor);
-	            g2d.fill(new Ellipse2D.Double(x, y, vrad, vrad));
+	            g2d.fill(new Ellipse2D.Double(x/scale, y/scale, vrad, vrad));
 	            g2d.setColor(Color.BLACK);
-	            g2d.drawString(cities.get(i).getName(), x, y);
+	            g2d.drawString(cities.get(i).getName(), x/scale, y/scale);
 	        }
     	}
     	City runLoc = cities.get(runnerLocation);
     	//City chaseLoc = chaserLocation;
     	g2d.setColor(new Color(189, 255, 226));
-    	g2d.drawString("Runner", runLoc.getX() + vrad, runLoc.getY() + vrad);
+    	g2d.drawString("Runner", runLoc.getX()/scale + vrad, runLoc.getY()/scale + vrad);
     	g2d.setColor(Color.PINK);
-    	g2d.drawString("Chaser", cities.get(chaserLocation).getX() + vrad,
-    			cities.get(chaserLocation).getY() + ((int) vrad/2));
+    	g2d.drawString("Chaser", cities.get(chaserLocation).getX()/scale + vrad,
+    			cities.get(chaserLocation).getY()/scale + ((int) vrad/2));
     	g2d.setColor(Color.BLACK);
     	g2d.drawString("runner: " + Integer.toString(runnerLocation), w - 70, h - 60);
     	g2d.drawString("chaser: " + Integer.toString(chaserLocation), w - 70, h - 50);

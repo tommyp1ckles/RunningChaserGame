@@ -15,4 +15,4 @@ public class RunnerChaserConfig {
 	 */
 	public static final double NPC_ALLEGIANCE_MEAN = 30;
 	public static final double NPC_ALLEGIANCE_STD_DEVIATION = 20;
-}
+} 
